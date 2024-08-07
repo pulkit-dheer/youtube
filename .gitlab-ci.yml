@@ -6,7 +6,7 @@ stages:
   - imgscan
   - run-container
 
-install_dependency:
+.install_dependency:
   stage: npm
   image:
     name: node:16
@@ -14,7 +14,7 @@ install_dependency:
   - npm install 
 
 
-sonarqube_check:
+.sonarqube_check:
   stage: sonar
   image: 
     name: sonarsource/sonar-scanner-cli:latest
@@ -33,7 +33,7 @@ sonarqube_check:
     - main
 
 
-trivy_file_scan:
+.trivy_file_scan:
   stage: trivy
   image:
     name: aquasec/trivy:latest
@@ -41,7 +41,7 @@ trivy_file_scan:
   script:
   - trivy fs . 
 
-docker_build_and_push:
+.docker_build_and_push:
   stage: docker
   image:
     name: docker:latest
@@ -54,7 +54,7 @@ docker_build_and_push:
   - docker push pulkitdheer/youtubev1:latest
 
 
-scan_image:
+.scan_image:
   stage: imgscan
   image:
     name: aquasec/trivy:latest
