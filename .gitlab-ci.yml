@@ -41,7 +41,7 @@ stages:
   script:
   - trivy fs . 
 
-docker_build_and_push:
+.docker_build_and_push:
   stage: docker
   image:
     name: docker:latest
@@ -67,4 +67,4 @@ deploy:
   tags:
     - github-runner
   script:
-  - docker run -d --name youtube -p 3000:3000 pulkitdheer/youtubev1:latest 
+  - docker run -d --name youtube -p 3000:3000 pulkitdheer/youtubev1:latest  
