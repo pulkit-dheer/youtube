@@ -41,7 +41,7 @@ stages:
   script:
   - trivy fs . 
 
-.docker_build_and_push:
+docker_build_and_push:
   stage: docker
   image:
     name: docker:latest
