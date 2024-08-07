@@ -67,4 +67,4 @@ deploy:
   tags:
     - github-runner
   script:
-  - docker run -d --name youtube -p 3000:3000 pulkitdheer/youtubev1:latest
+  - docker run -d --name youtube -p 3000:3000 pulkitdheer/youtubev1:latest 
