@@ -2,8 +2,10 @@ stages:
   - npm
   - sonar
   - trivy
+  - docker 
+  - imgscan
 
-Install dependency:
+.install_dependency:
   stage: npm
   image:
     name: node:16
@@ -11,7 +13,7 @@ Install dependency:
   - npm install 
 
 
-sonarqube-check:
+.sonarqube_check:
   stage: sonar
   image: 
     name: sonarsource/sonar-scanner-cli:latest
@@ -30,10 +32,32 @@ sonarqube-check:
     - main
 
 
-trivy-file-scan:
+.trivy_file_scan:
   stage: trivy
   image:
     name: aquasec/trivy:latest
     entrypoint: [""]
   script:
   - trivy fs . 
+
+docker_build_and_push:
+  stage: docker
+  image:
+    name: docker:latest
+  services:
+    - docker:dind
+  script:
+  - docker build --build-ard REACT_APP_RAPID_API_KEY=KJwZZIJSFimshuivMSVGaiYzkRomp15f2vKjsnK4bKzuUzVLzA -t youtubev1 .
+  - docker tag youtubev1 pulkitdheer/youtubev1:latest
+  - docker login -u $DOCKER_USER_YOUTUBE -p $DOCKER_PASSWORD_YOUTUBE
+  - docker push pulkitdheer/youtubev1:latest
+
+
+scan_image:
+  stage: imgscan
+  image:
+    name: aquasec/trivy:latest
+    entrypoint: [""]
+  script:
+  - trivy image pulkitdheer/youtubev1:latest
+
