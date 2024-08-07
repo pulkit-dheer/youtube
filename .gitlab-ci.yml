@@ -62,7 +62,7 @@ scan_image:
   script:
   - trivy image pulkitdheer/youtubev1:latest
 
-deploy: 
+deploy:  
   stage: run-container
   tags:
     - github-runner
