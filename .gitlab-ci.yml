@@ -34,5 +34,6 @@ trivy-file-scan:
   stage: trivy
   image:
     name: aquasec/trivy:latest
+    entrypoint: [""]
   script:
   - trivy fs . 
