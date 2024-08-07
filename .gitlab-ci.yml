@@ -1,6 +1,7 @@
 stages:
   - npm
   - sonar
+  - trivy fs
 
 Install dependency:
   stage: npm
@@ -27,3 +28,11 @@ sonarqube-check:
   allow_failure: true
   only:
     - main
+
+
+trivy-file-scan:
+  stage: trivy
+  image:
+    name: aquasec/trivy:latest
+  script:
+  - trivy fs . 
